@@ -29,6 +29,7 @@ library easy_autocomplete;
 
 import 'dart:async';
 
+import 'package:diacritic/diacritic.dart';
 import 'package:easy_autocomplete/widgets/filterable_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -214,7 +215,7 @@ class _EasyAutocompleteState extends State<EasyAutocomplete> {
     rebuildOverlay();
     if (widget.suggestions != null) {
       _suggestions = widget.suggestions!.where((element) {
-        return element.toLowerCase().contains(input.toLowerCase());
+        return removeDiacritics(element).toLowerCase().contains(removeDiacritics(input).toLowerCase());
       }).toList();
       rebuildOverlay();
     } else if (widget.asyncSuggestions != null) {
